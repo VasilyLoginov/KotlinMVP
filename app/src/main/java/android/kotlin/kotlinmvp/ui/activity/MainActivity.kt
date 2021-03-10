@@ -2,17 +2,23 @@ package android.kotlin.kotlinmvp.ui.activity
 
 import android.kotlin.kotlinmvp.R
 import android.kotlin.kotlinmvp.databinding.ActivityMainBinding
+import android.kotlin.kotlinmvp.mvp.model.CountersModel
 import android.kotlin.kotlinmvp.mvp.presenter.MainPresenter
 import android.kotlin.kotlinmvp.mvp.view.MainView
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import moxy.MvpAppCompatActivity
+import moxy.ktx.moxyPresenter
 
-class MainActivity : AppCompatActivity(), MainView {
+class MainActivity : MvpAppCompatActivity(), MainView {
 
     private var vb: ActivityMainBinding? = null
 
-    val presenter = MainPresenter(this)
+    private val presenter by moxyPresenter {
+        MainPresenter(CountersModel())
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
